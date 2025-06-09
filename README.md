@@ -2,5 +2,5 @@
 npm i express  
 npm i fs
 
-# localhost:8000
+# localhost:8888
 terminal -> node main.js
