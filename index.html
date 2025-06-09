@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vice Player</title>
+  <style>
+    /* Sayfa tam ekran ve ortalama stilleri */
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center; /* yatay ortalama */
+      align-items: center;     /* dikey ortalama */
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
+    }
+    video {
+      max-width: 100%;
+      max-height: 80vh;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <video id="player" controls></video>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoName = urlParams.get("video");
+
+    const video = document.getElementById("player");
+
+    if (videoName) {
+      video.src = `/video/${videoName}`;
+    } else {
+      video.style.display = "none";
+      document.body.innerHTML += "<p>🎥 Video bulunamadı.<br>Lütfen URL'ye <code>?video=dosya.mp4</code> ekleyin.</p>";
+    }
+  </script>
+</body>
+</html>
