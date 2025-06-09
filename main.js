@@ -25,7 +25,7 @@ app.get("/video/:name", function (req, res) {
   const range = req.headers.range;
 
   if (range) {
-    // tarayıcı range istiyorsa video chunklar halinde gönderilir
+    // tarayıcı range istiyorsa video chunk halinde gönderilir
     const parts = range.replace(/bytes=/, "").split("-");
     const start = parseInt(parts[0], 10);
     const end = parts[1] ? parseInt(parts[1], 10) : Math.min(start + 10 ** 6, fileSize - 1); // 1MB chunk
