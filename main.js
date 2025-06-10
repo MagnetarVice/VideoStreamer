@@ -53,5 +53,5 @@ app.get("/video/:name", function (req, res) {
 
 // port
 app.listen(8888, function () {
-  console.log("streaming on port 8888");
+  console.log("on port 8888");
 });
