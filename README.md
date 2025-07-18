@@ -1,6 +1,6 @@
 # NPM installs
-npm i express  
-npm i fs
+express, fs, path, cors, multer
 
 # localhost:8888
-terminal -> node main.js
+http://localhost:8888?video=name.mp4
+http://localhost:8888/upload
