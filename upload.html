@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Video Yükle</title>
+</head>
+<body style="background-color:#111; color:white; font-family:sans-serif;">
+  <h2>🎥 Video Yükleme</h2>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" name="video" accept="video/*" required />
+    <button type="submit">Yükle</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('uploadForm');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await res.json();
+        alert(`Yüklendi: ${result.filename}`);
+        window.location.href = `/?video=${result.filename}`;
+      } catch (err) {
+        alert('Yükleme başarısız!');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
