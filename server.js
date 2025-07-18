@@ -2,12 +2,20 @@ const express = require("express");
 const app = express();
 const fs = require("fs");
 const path = require("path");
+const cors = require('cors');
+const multer = require('multer');
 
 // HTML 
+app.use(cors());
+app.use(express.json());
+
 app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 });
 
+app.get('/upload', function (req, res) {
+    res.sendFile(__dirname + "/upload.html")
+})
 
 // video endpoint
 app.get("/video/:name", function (req, res) {
@@ -49,6 +57,28 @@ app.get("/video/:name", function (req, res) {
     });
     fs.createReadStream(videoPath).pipe(res);
   }
+});
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'videos/');
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    cb(null, Date.now() + ext); 
+  }
+});
+
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('video'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: 'Dosya yüklenemedi' });
+  }
+  res.json({
+    message: 'Yükleme başarılı',
+    filename: req.file.filename
+  });
 });
 
 // port
